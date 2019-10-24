@@ -1,50 +1,26 @@
 struct Node {
+
 	struct Node *left;
 	struct Node *right;
+	struct Node *parent;
+
 	void *data;
+
 	int position;
+	int size;
 
-}
-
-
-typedef int (*ComparisonFunction) (void *data1, void *data2);
+};
 
 
-
-int insert (struct Node **root, void *data, ComparisonFunction compare) {
-
-
-	struct Node *currentNode;
-	struct Node *lastNode;
-
-	if (!root) {
-		*head = allocateNewNode(data, 0);
-		return 0;
-			
-	} else {
-		currentNode = *head;
-		
-		while (currentNode) {
-			int compareResult = compare(data, currentNode->data;
-			
-			if (comporeResult < 0 ) {  /* Less than, go to the left */
-				lastNode = currentNode;
-				currentNode = currentNode.left;
-				continue;
-			} else {
-				lastNode = currentNode;
-				currentNode = currentNode.right;
-				continue;
-			}
-		}	
+typedef int  (*ComparisonFunction) (void *data1, void *data2);
 
 
-		if ( compare(data, lastNode->data) <0 ) {
-			lastNode->left = allocateNewNode(data, (lastNode->position) + 1;
-		} else {
-			lastNode->right = allocateNewNode(data, (lastNode->position) + 2);
-		}
-	}
-}
+
+int insert (struct Node **root, void *data, ComparisonFunction compare);
+
+int statFor( struct Node *head, int k, ComparisonFunction compare);
+
+
+
 
 
