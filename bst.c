@@ -15,7 +15,7 @@ struct Node* allocateNewNode(void *data, int position, struct Node *parent){
 		
 		
 		newNode->parent = parent;
-		newNode->parent->size = (newNode->paren->size) + 1;
+		newNode->parent->size = (newNode->parent->size) + 1;
 
 
 		newNode->left = NULL;
@@ -35,8 +35,11 @@ int insert (struct Node **head, void *data, ComparisonFunction compare) {
 
 	if (!head) {
 		*head = allocateNewNode(data, 0, NULL);
-		return 0;
-			
+		if (*head) {
+			return 0;
+		} else {
+			return -1;
+		}	
 	} else {
 		currentNode = *head;
 		
@@ -67,7 +70,7 @@ int insert (struct Node **head, void *data, ComparisonFunction compare) {
 
 
 
-int statFor( struct Node *head, int k ) {
+void* statFor( struct Node *head, int k ) {
 	
 	register int i = k;
 	struct Node *currentNode = head;
@@ -112,7 +115,7 @@ int statFor( struct Node *head, int k ) {
 		}
 
 	} else {
-		return -1;
+		return NULL;
 	}
 
 }
