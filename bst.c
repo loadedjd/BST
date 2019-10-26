@@ -1,8 +1,21 @@
 #include "bst.h"
 #include <stdlib.h>
+#include <stdio.h>
+
+
+static void incrementSizeOfAllParents(struct Node *child) {
+	struct Node *currentNode = child;
 
 
 
+	while (currentNode && currentNode->parent) {
+		if (currentNode->parent) {
+			int currentParentSize = currentNode->parent->size;
+			currentNode->parent->size = currentParentSize + 1;
+			currentNode = currentNode->parent;
+		}
+	}
+}
 
 
 struct Node* allocateNewNode(void *data, int position, struct Node *parent){
@@ -11,12 +24,11 @@ struct Node* allocateNewNode(void *data, int position, struct Node *parent){
 	if (newNode) {
 		newNode->data = data;
 		newNode->position = position;
-		newNode->size = 0;
-		
-		
+		newNode->size = 1;		
 		newNode->parent = parent;
-		newNode->parent->size = (newNode->parent->size) + 1;
 
+		incrementSizeOfAllParents(newNode);
+			
 
 		newNode->left = NULL;
 		newNode->right = NULL;
@@ -27,13 +39,15 @@ struct Node* allocateNewNode(void *data, int position, struct Node *parent){
 
 
 
+
+
 int insert (struct Node **head, void *data, ComparisonFunction compare) {
 
 
 	struct Node *currentNode;
 	struct Node *lastNode;
 
-	if (!head) {
+	if (  !(*head)  ) {
 		*head = allocateNewNode(data, 0, NULL);
 		if (*head) {
 			return 0;
@@ -92,7 +106,7 @@ void* statFor( struct Node *head, int k ) {
 		} else {
 			/* Continue looking in the right subtreee */
 			
-			difference = k - leftSubTreeSize + 1;
+			difference = k - leftSubTreeSize - 1;
 			currentNode = head->right;
 			
 		}
@@ -106,8 +120,8 @@ void* statFor( struct Node *head, int k ) {
 
 			if ( difference == leftSize + 1 ) { /* We are at the kth smallest node */
 				return currentNode->data;
-			} else if ( k > leftSize ) { /* Left tree is too small, subtract size of left sub tree from difference and traverse the right sub tree */
-				difference = difference - leftSize;
+			} else if ( difference > leftSize ) { /* Left tree is too small, subtract size of left sub tree from difference and traverse the right sub tree */
+				difference = difference - leftSize - 1;
 				currentNode = currentNode->right;
 			} else {
 				currentNode = currentNode->left;
@@ -123,7 +137,39 @@ void* statFor( struct Node *head, int k ) {
 
 
 
+int compare(void *data1, void *data2) {
+	int *x = (int*)data1;
+	int *y = (int*)data2;
 
+	return *x < *y ? -1 : 1;
+}
+
+
+
+int main() {
+	struct Node *head = NULL;
+	
+
+	int a = 3;
+	int b = 6;
+	int c = 9;
+	int *answer = NULL;
+
+
+ 
+	void *dataPtr = (void*)&a;
+	void *dataPtr2 = (void*)&b;
+	void *dataPtr3 = (void*)&c;	
+
+
+	insert(&head, dataPtr, compare);
+	insert(&head, dataPtr2, compare);
+	insert(&head, dataPtr3, compare);
+
+	answer = (int *)statFor(head, 2);
+	
+	printf("The answer is: %d \n", *answer);
+}
 
 
 
