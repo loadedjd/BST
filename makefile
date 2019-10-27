@@ -1,3 +1,6 @@
+MAIN: bst.c main.c bst.h
+	gcc -g -ansi -pedantic main.c bst.c -o MAIN
+
 BST: bst.c bst.h
 	gcc -g -ansi -pedantic bst.c -o BST
 

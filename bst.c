@@ -18,7 +18,7 @@ static void incrementSizeOfAllParents(struct Node *child) {
 }
 
 
-struct Node* allocateNewNode(void *data, int position, struct Node *parent){
+static struct Node* allocateNewNode(void *data, int position, struct Node *parent){
 	struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
 	
 	if (newNode) {
@@ -133,54 +133,3 @@ void* statFor( struct Node *head, int k ) {
 	}
 
 }
-
-
-
-
-int compare(void *data1, void *data2) {
-	int *x = (int*)data1;
-	int *y = (int*)data2;
-
-	return *x < *y ? -1 : 1;
-}
-
-
-
-int main() {
-	struct Node *head = NULL;
-	
-
-	int a = 3;
-	int b = 6;
-	int c = 9;
-	int *answer = NULL;
-
-
- 
-	void *dataPtr = (void*)&a;
-	void *dataPtr2 = (void*)&b;
-	void *dataPtr3 = (void*)&c;	
-
-
-	insert(&head, dataPtr, compare);
-	insert(&head, dataPtr2, compare);
-	insert(&head, dataPtr3, compare);
-
-	answer = (int *)statFor(head, 2);
-	
-	printf("The answer is: %d \n", *answer);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
