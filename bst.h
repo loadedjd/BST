@@ -18,7 +18,7 @@ typedef int  (*ComparisonFunction) (void *data1, void *data2);
 
 int insert (struct Node **root, void *data, ComparisonFunction compare);
 
-void*  statFor( struct Node *head, int k);
+void*  kthOrder( struct Node *head, int k);
 
 
 

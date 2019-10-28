@@ -1,5 +1,5 @@
-MAIN: bst.c main.c bst.h
-	gcc -g -ansi -pedantic main.c bst.c -o MAIN
+KTHORDER: bst.c kthOrder.c bst.h
+	gcc -g -ansi -pedantic kthOrder.c bst.c -o KTHORDER
 
 BST: bst.c bst.h
 	gcc -g -ansi -pedantic bst.c -o BST

@@ -1,0 +1,117 @@
+Jared Williams - Binary Tree Assignment
+
+TO COMPILE:
+	1) Run make inside of the project directory
+
+TO RUN:
+	1) The above command generated the executable for the project called KTHORDER
+	2) Run KTHORDER dataX posX where dataX and posX are data and position files respectively 
+
+
+
+
+Answers to assignment questions:
+
+1) As implemened the kthOrder method does run in theta(h) (assuming that the tree's expected height is log2(n)), in the case where the tree could not be assumed to have a max height of log(n), then we could modify out BST to be a red black tree, by performing rotations, in which case after the conversion the kthOrder method would run in theta(h) time. The data structure itself would have to be modified to allow each node of the tree to be colored. 
+
+2) The modified insert algorithm that would be used with the BST red black tree would first color the child being inserted to red, and then the algorithm would traverse the tree until it found the parent of the node being insered. Then the algorithm would apply one ofthe three fixUp algorithms that can be used to modify a Binary Tree into a Red Black Tree. Pseudo code follows. 
+
+The following pseudo code is modified from the Red Black Tree insert algorithm discussed in class
+
+func insert(Tree T, Node z)
+	parent <- NIL
+	x <- T.root
+
+	while (x.size > 0 ) do
+		parent <- x
+		if ( z.key < parent.key ) then
+			x <- x.left
+		else
+			x <- x.right
+	end
+
+	
+	z.parent <- parent
+	if ( parent = NIL ) then T.root <- z
+	
+	else if (z.key < parent.key ) then parent.left <- z
+	else parent.right <- z
+
+	z.left <- NIL
+	z.right <- NIL
+	z.color <- RED
+
+	parentColor <- z.parent.color
+	parentSide <- parent = parent.parent.left ? LEFT : RIGHT
+
+	uncle <- parentSize = LEFT ? parent.parent.right : parent.parent.left
+	uncleColor <- parentSide = LEFT ? parent.parent.right.color : parent.parent.left.color
+
+	if ( parentColor = RED and uncleColor = RED ) then
+		z.parent.color <- BLACK
+		uncle.color <- BLACK
+		parent.parent.color <- RED
+		// Repeat for Grandparent
+	else if ( parent.color = RED and uncleColor = BLACK and z = parent.left and parent = parent.parent.left ) then
+		rightRotate(T, parent.parent)
+		parent.color = BLACK
+		
+		parent.right.color = RED
+	else if ( parent.color = RED and uncleColor = BLACK and z = parent.right and parent = parent.parent.left then
+		swap(z, parent)
+		leftRotate(parent)
+		rightRotate(t, parent.parent)
+		parent.color = BLACK
+
+end
+
+
+
+
+
+
+
+
+
+3) 
+
+The algorithm to find the kth order statistic first finds the size of the left sub tree of the head node of the tree. If target value (k) is less than the leftSubTreeSize then the algorithm searches for the (k-1)th order statiistic in the left subtree. If k is equal to the left sub tree size + 1, then the kth order statistic has been found and the data at the current node will be returned. If k is greater than the left sub tree size then the (k-1)th order statistic will be searched for in the right sub tree. If k is greater than the size of the tree -1 is returned.
+
+Pseudo code follows:
+
+
+
+
+
+
+func kthOrder(T, k)
+
+
+	if ( k > T.size ) then
+		return -1
+ 
+	leftSize <- T.left.size
+	rightSize <- T.right.size
+
+	if ( k = leftSize + 1 ) then
+		return T.key
+	
+	else if ( k < leftSize ) then
+		kthOrder(T.left, k-1)
+	
+	else if ( k > leftSize ) then
+		kthOrder(T.right, k-1)
+
+
+end
+
+
+
+
+
+
+
+
+
+
+

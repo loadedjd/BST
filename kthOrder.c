@@ -35,10 +35,10 @@ void findAndPrintKthOrderStatisticFromFile(FILE *positionFile, struct Node *head
 	int readInValue = 0;
 
 	while(fscanf(positionFile, "%d", &readInValue) > 0) {
-		void *stat = statFor(head, readInValue);
+		void *stat = kthOrder(head, readInValue);
 		int *intStat = (int*)stat;
 		
-		printf("The %d stat is %d", readInValue, *intStat);
+		printf("The %dth stat is %d\n", readInValue, *intStat);
 		
 	}
 } 

@@ -84,7 +84,7 @@ int insert (struct Node **head, void *data, ComparisonFunction compare) {
 
 
 
-void* statFor( struct Node *head, int k ) {
+void* kthOrder( struct Node *head, int k ) {
 	
 	register int i = k;
 	struct Node *currentNode = head;
@@ -100,9 +100,9 @@ void* statFor( struct Node *head, int k ) {
 		
 		if ( k == leftSubTreeSize + 1 ) {
 			return head->data;
-		} else if ( k < leftSubTreeSize ) {
+		} else if ( k <= leftSubTreeSize ) {
 			/* Coninue looking in the left subtree */
-			
+			currentNode = currentNode->left;	
 		} else {
 			/* Continue looking in the right subtreee */
 			
